@@ -4,7 +4,6 @@ import Footer from "./Footer";
 import Note from "./Note";
 import InputArea from "./InputArea";
 import axios from "axios";
-import ModifyNote from "./ModifyNote";
 function App() {
   const [notes, setNotes] = useState([]);
   const [showModify, setShowModify] = useState(false);
@@ -36,43 +35,11 @@ function App() {
       .catch((error) => console.error(error));
   }
 
-  function modifyNote(id) {
-    setShowModify(true);
-    setModifyNoteId(id);
-  }
-
-  function onCancel() {
-    setShowModify(false);
-  }
-
-  function onSave(id, title, content) {
-    const noteId = id;
-
-    axios
-      .put(`https://dhivya-notes-backend.onrender.com/api/notes/${noteId}`, {
-        title,
-        content,
-      })
-      .then((response) => {
-        setNotes(
-          notes.map((note) => {
-            if (note._id === id) {
-              return { ...note, title: title, content: content };
-            }
-          })
-        );
-        setShowModify(false);
-      })
-      .catch((error) => console.error(error));
-  }
-
   return (
     <div>
       <Header />
       <InputArea onAdd={addNote} />
-      {showModify && (
-        <ModifyNote id={modifyNoteId} onCancel={onCancel} onSave={onSave} />
-      )}
+
       {notes.map((noteItem, index) => {
         return (
           <Note
@@ -81,7 +48,6 @@ function App() {
             title={noteItem.title}
             content={noteItem.content}
             onDelete={deleteNote}
-            onModify={modifyNote}
           />
         );
       })}
