@@ -6,8 +6,6 @@ import InputArea from "./InputArea";
 import axios from "axios";
 function App() {
   const [notes, setNotes] = useState([]);
-  const [showModify, setShowModify] = useState(false);
-  const [modifyNoteId, setModifyNoteId] = useState("");
 
   useEffect(() => {
     // Fetch existing notes when the component mounts
