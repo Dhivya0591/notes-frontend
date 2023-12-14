@@ -13,14 +13,14 @@ function App() {
   useEffect(() => {
     // Fetch existing notes when the component mounts
     axios
-      .get("http://localhost:3001/api/notes")
+      .get("https://dhivya-notes-backend.onrender.com/api/notes")
       .then((response) => setNotes(response.data))
       .catch((error) => console.error(error));
   }, []);
 
   function addNote(newNote) {
     axios
-      .post("http://localhost:3001/api/notes", newNote)
+      .post("https://dhivya-notes-backend.onrender.com/api/notes", newNote)
       .then((response) => setNotes([...notes, response.data]))
       .catch((error) => console.error(error));
   }
@@ -31,7 +31,7 @@ function App() {
 
     // Send a DELETE request to remove the note from the backend
     axios
-      .delete(`http://localhost:3001/api/notes/${noteId}`)
+      .delete(`https://dhivya-notes-backend.onrender.com/api/notes/${noteId}`)
       .then(() => setNotes(notes.filter((note) => note._id !== id)))
       .catch((error) => console.error(error));
   }
@@ -49,13 +49,11 @@ function App() {
     const noteId = id;
 
     axios
-      .put(`http://localhost:3001/api/notes/${noteId}`, { title, content })
+      .put(`https://dhivya-notes-backend.onrender.com/api/notes/${noteId}`, {
+        title,
+        content,
+      })
       .then((response) => {
-        // setNotes((prevNotes) => {
-        //   const updatedNotes = [...prevNotes];
-        //   updatedNotes[id] = response.data;
-        //   return updatedNotes;
-        // });
         setNotes(
           notes.map((note) => {
             if (note._id === id) {
